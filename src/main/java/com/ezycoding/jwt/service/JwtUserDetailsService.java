@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
@@ -23,6 +26,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		log.info("User name received: {}", username);
 		if (this.username.equals(username)) {
 			return new User(username, passwordEncoder.encode(this.password), new ArrayList<>());
 		} else {
